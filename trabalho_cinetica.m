@@ -1,6 +1,5 @@
 clear,clc
 for w = 1:4
-    %% estrutura para abrir os dados de cada arquivo
     if w == 1
         filename = 'TGA-c145a-celulose tx 5.txt';
     elseif w == 2
@@ -17,25 +16,15 @@ for w = 1:4
     
     % carrega os dados do arquivo txt para a variável A 
     A = load (filename);
-    
-    %% Estrutura para alocação dos dados
-    % pega dos dados da variável A e coloca nas listas tempo, temperatura
-    % e TG_massa
     for c = 1:length(A)
         tempo(c) = A(c,1);
         temperatura(c) = A(c,2);
         TG_massa(c) = A(c,3);
-    end
-    
-    %% Estrutura que calcula TG em porcentagem e conversão (alfa)
-    % converte a TG_massa em mg para porcentagem (TG_porc) e calcula a
-    % conversão da degradação
+    end    
     for c = 1:length(TG_massa)
          TG_porc(c) = (TG_massa(c)/TG_massa(1))*100;
          alfa(c) = (TG_massa(1)-TG_massa(c))/(TG_massa(1)-TG_massa(length(TG_massa)));
-    end
-    
-    %% Estrutra para calcular a DTG de cada degradação
+    end    
     for i = 1:length(TG_porc)
         if i == 1
             primeiro = (TG_porc(i+1)-TG_porc(i))/(tempo(i+1)-tempo(i));
@@ -50,7 +39,16 @@ for w = 1:4
         derivada(i) = (1/2)*(primeiro + segundo);
     end
     
-    %% Cria os gráficos
+    % encontrar a T pico em cada taxa
+    min = derivada(1);
+    indice = 1;
+    for cont = 2:length(derivada)
+        if derivada(cont) < min
+            min = derivada(cont);
+            indice = cont;
+        end
+    end
+    T_pico(w) = temperatura(indice);
     
     % Figura 1 - Curvas TG de cada taxa de aquecimento
     figure (1)
@@ -70,17 +68,18 @@ for w = 1:4
     hold on
 end
 
-%% Adiciona título, rótulos nos eixos e legenda
 figure (1)
 title('Curvas TG')
 xlabel('Temperatura (ºC)')
 ylabel('Massa (%)')
 legend('5 ºC/min','10 ºC/min', '20 ºC/min', '40 ºC/min')
+
 figure (2)
 title('Conversão vs. Temperatura')
 xlabel('Temperatura (ºC)')
 ylabel('Conversão')
 legend({'5 ºC/min','10 ºC/min', '20 ºC/min', '40 ºC/min'},'Location','northwest')
+
 figure (3)
 title('Curvas DTG')
 xlabel('Temperatura (ºC)')
