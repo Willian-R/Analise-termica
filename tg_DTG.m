@@ -11,19 +11,18 @@ for c = 1:length(TGA)
     TG_porcentagem(c) = (TGA(c)/TGA(1))*100;
 end
 
-% calcular a derivada primeira da curva TG (DTG)
+% calcular a derivada primeira da curva TG (DTG) - 
+% (método Differentiate - Originlab)
 for i = 1:length(TG_porcentagem)
     if i == 1
-        primeiro = (TG_porcentagem(i+1)-TG_porcentagem(i))/(tempo(i+1)-tempo(i));
-        segundo = (TG_porcentagem(i)-0)/(tempo(i)-0);
+         derivada(i) = (TG_porcentagem(i+1)-TG_porcentagem(i))/(tempo(i+1)-tempo(i));
     elseif i == length(TG_porcentagem)
-        primeiro = (0-TG_porcentagem(i))/(0-tempo(i));
-        segundo = (TG_porcentagem(i)-TG_porcentagem(i-1))/(tempo(i)-tempo(i-1));
+         derivada(i) = (TG_porcentagem(i)-TG_porcentagem(i-1))/(tempo(i)-tempo(i-1));
     else
         primeiro = (TG_porcentagem(i+1)-TG_porcentagem(i))/(tempo(i+1)-tempo(i));
         segundo = (TG_porcentagem(i)-TG_porcentagem(i-1))/(tempo(i)-tempo(i-1));
+        derivada(i) = (1/2)*(primeiro + segundo);
     end
-    derivada(i) = (1/2)*(primeiro + segundo);
 end
 
 % cria o gráfico TG/DTG
