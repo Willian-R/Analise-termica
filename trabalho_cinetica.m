@@ -1,3 +1,5 @@
+% author Willian B. Ribeiro
+% 07/05/2020
 clear,clc
 for w = 1:4
     if w == 1
@@ -14,7 +16,7 @@ for w = 1:4
     clear A; clear tempo; clear temperatura; clear TG_massa; clear TG_porc; 
     clear alfa; clear derivada
     
-    % carrega os dados do arquivo txt para a variável A 
+    % carrega os dados do arquivo txt para a variÃ¡vel A 
     A = load (filename);
     for c = 1:length(A)
         tempo(c) = A(c,1);
@@ -56,7 +58,7 @@ for w = 1:4
     axis([10 605 0 105])
     hold on
     
-    % Figura 2 - Conversão
+    % Figura 2 - ConversÃ£o
     figure (2)
     plot(temperatura, alfa)
     axis([10 605 -0.1 1.1])
@@ -70,18 +72,18 @@ end
 
 figure (1)
 title('Curvas TG')
-xlabel('Temperatura (ºC)')
+xlabel('Temperatura (ÂºC)')
 ylabel('Massa (%)')
-legend('5 ºC/min','10 ºC/min', '20 ºC/min', '40 ºC/min')
+legend('5 ÂºC/min','10 ÂºC/min', '20 ÂºC/min', '40 ÂºC/min')
 
 figure (2)
-title('Conversão vs. Temperatura')
-xlabel('Temperatura (ºC)')
-ylabel('Conversão')
-legend({'5 ºC/min','10 ºC/min', '20 ºC/min', '40 ºC/min'},'Location','northwest')
+title('ConversÃ£o vs. Temperatura')
+xlabel('Temperatura (ÂºC)')
+ylabel('ConversÃ£o')
+legend({'5 ÂºC/min','10 ÂºC/min', '20 ÂºC/min', '40 ÂºC/min'},'Location','northwest')
 
 figure (3)
 title('Curvas DTG')
-xlabel('Temperatura (ºC)')
+xlabel('Temperatura (ÂºC)')
 ylabel('DTG (%/seg)')
-legend({'5 ºC/min','10 ºC/min', '20 ºC/min', '40 ºC/min'},'Location','southwest')
+legend({'5 ÂºC/min','10 ÂºC/min', '20 ÂºC/min', '40 ÂºC/min'},'Location','southwest')
